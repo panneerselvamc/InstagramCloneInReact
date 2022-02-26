@@ -21,7 +21,7 @@ function Suggestions() {
       {suggestions.map((suggestion, index) => (
         <Profile
           key={index}
-          username={suggestion.userName}
+          username={suggestion.username}
           caption={`Followed By ${suggestion.followers[0]} + ${
             suggestion.followers.length - 1
           }`}
