@@ -12,7 +12,6 @@ function Profile(props) {
     hideAccountName,
     image,
   } = props;
-
   return (
     <div className="profile">
       <ProfileIcon
