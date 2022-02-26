@@ -5,14 +5,8 @@ import CardMenu from "./CardMenu";
 import Comment from "./Comment";
 
 function Card(props) {
-  const {
-    storyBorder,
-    image,
-    comments,
-    likedByText,
-    likedByNumber,
-    hours,
-  } = props;
+  const { storyBorder, image, comments, likedByText, likedByNumber, hours } =
+    props;
 
   return (
     <div className="card">
@@ -30,17 +24,17 @@ function Card(props) {
         </span>
       </div>
       <div className="comments">
-        {comments.map((comment) => {
+        {comments.map((comment, index) => {
           return (
             <Comment
-              key={comment.id}
-              accountName={comment.user}
-              comment={comment.text}
+              key={index}
+              accountName={comment.username}
+              comment={comment.comment}
             />
           );
         })}
       </div>
-      <div className="timePosted">{hours} HOURS AGO</div>
+      <div className="timePosted">{hours}</div>
       <div className="addComment">
         <div className="commentText">Add a comment...</div>
         <div className="postText">Post</div>

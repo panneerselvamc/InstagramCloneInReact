@@ -1,72 +1,32 @@
 import "../styles/cards.scss";
 import Stories from "./Stories";
 import Card from "./Card";
+import { useEffect, useState } from "react";
+import HttpService from "../http-service/HttpService";
 
+const service = new HttpService();
 function Cards() {
-  const commentsOne = [
-    {
-      user: "raffagrassetti",
-      text: "Woah dude, this is awesome! 🔥",
-      id: 1,
-    },
-    {
-      user: "therealadamsavage",
-      text: "Like!",
-      id: 2,
-    },
-    {
-      user: "mapvault",
-      text: "Niceeeee!",
-      id: 3,
-    },
-  ];
-
-  const commentsTwo = [
-    {
-      user: "mapvault",
-      text: "Amazing content, keep it up!",
-      id: 4,
-    },
-  ];
-
-  const commentsThree = [
-    {
-      user: "dadatlacak",
-      text: "Love this!",
-      id: 5,
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    service.get("/api/posts").then((res) => {
+      setPosts(res);
+    });
+  }, []);
 
   return (
     <div className="cards">
       <Stories />
-
-      <Card
-        accountName="rafagrassetti"
-        storyBorder={true}
-        image="https://picsum.photos/800/900"
-        comments={commentsOne}
-        likedByText="dadatlacak"
-        likedByNumber={89}
-        hours={16}
-      />
-      <Card
-        accountName="mapvault"
-        image="https://picsum.photos/800"
-        comments={commentsTwo}
-        likedByText="therealadamsavage"
-        likedByNumber={47}
-        hours={12}
-      />
-      <Card
-        accountName="dadatlacak"
-        storyBorder={true}
-        image="https://picsum.photos/800/1000"
-        comments={commentsThree}
-        likedByText="mapvault"
-        likedByNumber={90}
-        hours={4}
-      />
+      {posts.map((post, index) => (
+        <Card
+          accountName={post.poster.username}
+          storyBorder={post.hasStory}
+          image={post.postImage}
+          comments={post.comments}
+          likedByText={post.recentLikeBy}
+          likedByNumber={post.likesCount - 1}
+          hours={post.timestamp}
+        />
+      ))}
     </div>
   );
 }
