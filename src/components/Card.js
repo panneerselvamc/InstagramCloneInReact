@@ -5,13 +5,23 @@ import CardMenu from "./CardMenu";
 import Comment from "./Comment";
 
 function Card(props) {
-  const { storyBorder, image, comments, likedByText, likedByNumber, hours } =
-    props;
-
+  const {
+    storyBorder,
+    image,
+    comments,
+    likedByText,
+    likedByNumber,
+    hours,
+    accountName,
+  } = props;
   return (
     <div className="card">
       <header>
-        <Profile iconSize="medium" storyBorder={storyBorder} />
+        <Profile
+          iconSize="medium"
+          storyBorder={storyBorder}
+          username={accountName}
+        />
         <CardButton className="cardButton" />
       </header>
       <img className="cardImage" src={image} alt="card content" />
